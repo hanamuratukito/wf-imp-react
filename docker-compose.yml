@@ -1,0 +1,33 @@
+version: '3.7'
+
+services:
+  db:
+    image: postgres
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_PASSWORD: 'postgres'
+  backend:
+    tty: true
+    depends_on:
+      - db
+    build:
+      context: ./backend/
+      dockerfile: Dockerfile
+    ports:
+      - 3000:3000
+    volumes:
+      - ./backend:/app
+    command: rails server -b 0.0.0.0
+  frontend:
+    build:
+      context: ./frontend/
+      dockerfile: Dockerfile
+    volumes:
+      - ./frontend/app:/usr/src/app
+    command: 'yarn dev'
+    ports:
+      - '8000:3000'
+volumes:
+  postgres-data:
+    driver: local
