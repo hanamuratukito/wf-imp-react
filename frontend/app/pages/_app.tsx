@@ -3,6 +3,7 @@ import type { AppProps } from 'next/app';
 import Header from '../components/layouts/header/Header';
 import theme from '../theme/theme';
 import { ThemeProvider } from '@material-ui/core';
+import 'tailwindcss/tailwind.css';
 
 export default function MyApp({ Component, pageProps }: AppProps) {
   useEffect(() => {
@@ -13,6 +14,7 @@ export default function MyApp({ Component, pageProps }: AppProps) {
     // 「JSX expressions must have one parent element.」対策に<>を導入
     <>
       <ThemeProvider theme={theme}>
+        {/* TODO 「画面高さ - ヘッダーの高さ」の指定 */}
         <Header />
         <Component {...pageProps} />
       </ThemeProvider>
