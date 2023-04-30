@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react';
 import type { AppProps } from 'next/app';
 import Header from '../components/layouts/header/Header';
+import theme from '../theme/theme';
+import { ThemeProvider } from '@material-ui/core';
 
 export default function MyApp({ Component, pageProps }: AppProps) {
   useEffect(() => {
@@ -10,8 +12,10 @@ export default function MyApp({ Component, pageProps }: AppProps) {
   return (
     // 「JSX expressions must have one parent element.」対策に<>を導入
     <>
-      <Header />
-      <Component {...pageProps} />
+      <ThemeProvider theme={theme}>
+        <Header />
+        <Component {...pageProps} />
+      </ThemeProvider>
     </>
   );
 }
