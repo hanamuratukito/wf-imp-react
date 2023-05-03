@@ -38,8 +38,9 @@ https://hatolabo.com/programming/command-failed-code-127
 https://qiita.com/keitakn/items/7433c89ce52073e861a1#%E3%83%87%E3%82%A3%E3%83%AC%E3%82%AF%E3%83%88%E3%83%AA%E6%A7%8B%E6%88%90%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6
 
 # フォルダ構成
-
 https://note.com/ryoppei/n/n2e3e7a66e758
+
+※componentsのファイル名は頭大文字とし、メソッド名も頭大文字とする。
 
 # マテリアルUIの導入
 
