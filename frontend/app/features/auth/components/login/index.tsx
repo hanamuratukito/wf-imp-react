@@ -3,48 +3,47 @@ import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import Link from '@material-ui/core/Link';
 import Button from '@material-ui/core/Button';
-// import React, { useState, useContext } from 'react';
+import React, { useState, useContext } from 'react';
 import { signIn, SignInParams } from '../../api/auth';
-// import { useNavigate, Link } from 'react-router-dom';
+import { useRouter } from 'next/router';
 
 const inter = Inter({ subsets: ['latin'] });
 
 export default function LoginInfo() {
-  // const navigate = useNavigate();
+  const router = useRouter();
+  const [email, setEmail] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
+  const [alertMessageOpen, setAlertMessageOpen] = useState<boolean>(false);
 
-  // const [email, setEmail] = useState<string>('');
-  // const [password, setPassword] = useState<string>('');
-  // const [alertMessageOpen, setAlertMessageOpen] = useState<boolean>(false);
+  const tryLogin = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
 
-  // const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
-  //   e.preventDefault();
+    const params: SignInParams = {
+      email: email,
+      password: password,
+    };
 
-  //   const params: SignInParams = {
-  //     email: email,
-  //     password: password,
-  //   };
+    try {
+      const res = await signIn(params);
+      console.log(res);
 
-  //   try {
-  //     const res = await signIn(params);
-  //     console.log(res);
+      if (res.status === 200) {
+        // ログインに成功した場合はCookieに各値を格納
+        // Cookies.set('_access_token', res.headers['access-token']);
+        // Cookies.set('_client', res.headers['client']);
+        // Cookies.set('_uid', res.headers['uid']);
 
-  //     if (res.status === 200) {
-  //       // ログインに成功した場合はCookieに各値を格納
-  //       // Cookies.set('_access_token', res.headers['access-token']);
-  //       // Cookies.set('_client', res.headers['client']);
-  //       // Cookies.set('_uid', res.headers['uid']);
+        router.push('/');
 
-  //       navigate('/');
-
-  //       console.log('Signed in successfully!');
-  //     } else {
-  //       setAlertMessageOpen(true);
-  //     }
-  //   } catch (err) {
-  //     console.log(err);
-  //     setAlertMessageOpen(true);
-  //   }
-  // };
+        console.log('Signed in successfully!');
+      } else {
+        setAlertMessageOpen(true);
+      }
+    } catch (err) {
+      console.log(err);
+      setAlertMessageOpen(true);
+    }
+  };
 
   return (
     <div className="flex justify-center">
@@ -60,6 +59,7 @@ export default function LoginInfo() {
             variant="outlined"
             className="!mt-10"
             color="primary"
+            value={email}
           />
 
           <Typography variant="body2" className="text-blue-500">
@@ -75,6 +75,7 @@ export default function LoginInfo() {
             variant="outlined"
             className="!mt-10"
             color="primary"
+            value={password}
           />
 
           <Typography variant="body2" className="text-blue-500">
@@ -95,6 +96,7 @@ export default function LoginInfo() {
           <Button
             variant="contained"
             className="!ml-3 !mt-12 !text-white !bg-blue-600"
+            onClick={tryLogin}
           >
             ログイン
           </Button>
