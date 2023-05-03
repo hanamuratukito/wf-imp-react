@@ -21,9 +21,13 @@ info Visit https://yarnpkg.com/en/docs/cli/create for documentation about this c
 error Found incompatible module.
 
 
-２．https://qiita.com/Co-0/items/db8d36d31b1480b92d64
+２．「failed to solve: rpc error: code = Unknown desc = failed to solve with・・・」の対応
+https://qiita.com/Co-0/items/db8d36d31b1480b92d64
 
 ３．https://rails-ambassador.herokuapp.com/debugs/NoDatabaseError
+
+４．docker-compose up実行時にfrontend資材で「command-failed-code-127」エラーが発生。npm iをpacage.jsonのある階層で実行すれば解決
+https://hatolabo.com/programming/command-failed-code-127
 
 
 # 導入ライブラリ
