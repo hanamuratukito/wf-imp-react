@@ -1,6 +1,8 @@
 # wf-imp-reactの環境構築
 
-１．主に以下URLから手順を行う
+１．主に以下URLを参考に手順を行う
+https://qiita.com/asami___t/items/256f76c3c8a9bd5d0732
+
 https://qiita.com/ren0826jam/items/ddd69ecd59400216a2e6
 
 
