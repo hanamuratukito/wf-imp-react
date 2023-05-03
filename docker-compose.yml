@@ -7,6 +7,8 @@ services:
       - postgres-data:/var/lib/postgresql/data
     environment:
       POSTGRES_PASSWORD: 'postgres'
+    ports:
+      - 5432:5432
   backend:
     tty: true
     depends_on:
