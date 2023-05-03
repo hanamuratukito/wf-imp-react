@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  mount_devise_token_auth_for 'User', at: 'auth'
   # TODO 以下から
   # devise_for :users, controllers: {
   #   sessions: 'users/sessions'
@@ -10,6 +11,9 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "articles#index"
   namespace :api do
+    # post 'auth/registrations'
+    # get 'test/index'
+    # resources :test, only: %i[index]3
     mount_devise_token_auth_for 'User', at: 'auth', controllers: {
       registrations: 'api/auth/registrations'
     }

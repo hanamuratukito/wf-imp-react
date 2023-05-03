@@ -89,6 +89,7 @@ export default function LoginInfo() {
           <Button
             variant="contained"
             className="!mt-12 !text-white !bg-blue-600"
+            href="/auth/register"
           >
             新規登録
           </Button>

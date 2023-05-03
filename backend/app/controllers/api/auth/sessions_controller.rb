@@ -1,6 +1,4 @@
-# frozen_string_literal: true
-
-class Users::SessionsController < ApplicationController
+class Api::Auth::SessionsController < ApplicationController
   def index
     if current_api_user
       render json: { is_login: true, data: current_api_user }
