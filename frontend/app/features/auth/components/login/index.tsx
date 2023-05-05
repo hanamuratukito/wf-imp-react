@@ -33,7 +33,7 @@ export default function LoginInfo() {
         // Cookies.set('_client', res.headers['client']);
         // Cookies.set('_uid', res.headers['uid']);
 
-        router.push('/');
+        router.push('/test');
 
         console.log('Signed in successfully!');
       } else {
@@ -60,6 +60,7 @@ export default function LoginInfo() {
             className="!mt-10"
             color="primary"
             value={email}
+            onChange={event => setEmail(event.target.value)}
           />
 
           <Typography variant="body2" className="text-blue-500">
@@ -76,6 +77,7 @@ export default function LoginInfo() {
             className="!mt-10"
             color="primary"
             value={password}
+            onChange={event => setPassword(event.target.value)}
           />
 
           <Typography variant="body2" className="text-blue-500">
