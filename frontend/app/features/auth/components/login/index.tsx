@@ -7,15 +7,14 @@ import React, { useState } from 'react';
 import { signIn, SignInParams } from '../../api/auth';
 import { useRouter } from 'next/router';
 import Cookies from 'js-cookie';
-import { authSlice, selectAuthState } from '../../stores/authStore';
-import { useDispatch, useSelector } from 'react-redux';
+import { authSlice } from '../../stores/authStore';
+import { useDispatch } from 'react-redux';
 
 const inter = Inter({ subsets: ['latin'] });
 
 export default function LoginInfo() {
   const router = useRouter();
   const dispatch = useDispatch();
-  const authState = useSelector(selectAuthState);
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
 
@@ -28,22 +27,19 @@ export default function LoginInfo() {
     };
 
     try {
-      // const res = await signIn(params);
-      console.log(authState);
+      const res = await signIn(params);
 
-      dispatch(authSlice.actions.updateIsLogin({ isLogin: true }));
+      if (res.status === 200) {
+        // ログインに成功した場合はCookieに各値を格納
+        // TODO セキュリティ面を考慮するとサーバーでcookie登録するのが望ましい
+        Cookies.set('_access_token', res.headers['access-token']);
+        Cookies.set('_client', res.headers['client']);
+        Cookies.set('_uid', res.headers['uid']);
 
-      // if (res.status === 200) {
-      //   // ログインに成功した場合はCookieに各値を格納
-      //   // TODO セキュリティ面を考慮するとサーバーでcookie登録するのが望ましい
-      //   Cookies.set('_access_token', res.headers['access-token']);
-      //   Cookies.set('_client', res.headers['client']);
-      //   Cookies.set('_uid', res.headers['uid']);
+        dispatch(authSlice.actions.updateIsLogin({ isLogin: true }));
 
-      //   dispatch(authSlice.actions.updateIsLogin({ isLogin: true }));
-
-      //   router.push('/request/list');
-      // }
+        router.push('/request/list');
+      }
     } catch (err) {
       console.log(err);
     }

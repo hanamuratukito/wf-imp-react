@@ -6,12 +6,15 @@ import React, { useState } from 'react';
 import { signUp, SignUpParams } from '../../api/auth';
 import { useRouter } from 'next/router';
 import Cookies from "js-cookie"
+import { authSlice } from '../../stores/authStore';
+import { useDispatch } from 'react-redux';
 
 const inter = Inter({ subsets: ['latin'] });
 
 export default function UserRegisterInfo() {
   const router = useRouter();
 
+  const dispatch = useDispatch();
   const [name, setName] = useState<string>('');
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
@@ -38,9 +41,9 @@ export default function UserRegisterInfo() {
         Cookies.set('_client', res.headers['client']);
         Cookies.set('_uid', res.headers['uid']);
 
-        router.push('/request/list');
+        dispatch(authSlice.actions.updateIsLogin({ isLogin: true }));
 
-        console.log('Signed in successfully!');
+        router.push('/request/list');
       }
     } catch (err) {
       console.log(err);
