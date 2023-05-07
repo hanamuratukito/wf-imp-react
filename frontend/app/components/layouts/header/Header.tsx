@@ -32,6 +32,7 @@ export default function ButtonAppBar() {
 
       if (res.data.success) {
         // サインアウト時には各Cookieを削除
+        // TODO セキュリティ面を考慮するとサーバーでcookie登録するのが望ましい
         Cookies.remove('_access_token');
         Cookies.remove('_client');
         Cookies.remove('_uid');

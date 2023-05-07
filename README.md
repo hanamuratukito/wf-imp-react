@@ -41,7 +41,8 @@ https://qiita.com/keitakn/items/7433c89ce52073e861a1#%E3%83%87%E3%82%A3%E3%83%AC
 # フォルダ構成
 https://note.com/ryoppei/n/n2e3e7a66e758
 
-※componentsのファイル名は頭大文字とし、メソッド名も頭大文字とする。
+※１：componentsのファイル名は頭大文字とし、メソッド名も頭大文字とする。
+※２：状態管理ライブラリはreduxで統一。（他ライブラリを使いたいところだが、一旦fluxを学ぶためにもreduxで進める。）
 
 # マテリアルUIの導入
 

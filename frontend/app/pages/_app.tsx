@@ -4,8 +4,9 @@ import Header from '../components/layouts/header/Header';
 import theme from '../theme/theme';
 import { ThemeProvider } from '@material-ui/core';
 import 'tailwindcss/tailwind.css';
+import { wrapper } from '../stores/store';
 
-export default function MyApp({ Component, pageProps }: AppProps) {
+function MyApp({ Component, pageProps }: AppProps) {
   useEffect(() => {
     const jssStyles = document.querySelector('#jss-server-side');
     jssStyles?.parentElement?.removeChild(jssStyles);
@@ -21,3 +22,5 @@ export default function MyApp({ Component, pageProps }: AppProps) {
     </>
   );
 }
+
+export default wrapper.withRedux(MyApp);

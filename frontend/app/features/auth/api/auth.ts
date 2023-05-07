@@ -42,6 +42,7 @@ export const signIn = (params: SignInParams) => {
 
 // サインアウト（ログアウト）
 export const signOut = () => {
+  // TODO セキュリティ面を考慮するとサーバーでcookie登録するのが望ましい
   return client.delete('auth/sign_out', {
     headers: {
       'access-token': Cookies.get('_access_token'),
