@@ -31,6 +31,7 @@ https://qiita.com/Co-0/items/db8d36d31b1480b92d64
 ４．docker-compose up実行時にfrontend資材で「command-failed-code-127」エラーが発生。npm iをpacage.jsonのある階層で実行すれば解決
 https://hatolabo.com/programming/command-failed-code-127
 
+５．tailwindowが急に効かなくなった場合、tailwind.config.jsの定義を確認すべし
 
 # 導入ライブラリ
 

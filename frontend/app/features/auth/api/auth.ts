@@ -1,4 +1,5 @@
 import client from '../../../pages/api/client';
+import Cookies from "js-cookie"
 
 // サインアップ
 export interface SignUpParams {
@@ -41,13 +42,13 @@ export const signIn = (params: SignInParams) => {
 
 // サインアウト（ログアウト）
 export const signOut = () => {
-  // return client.delete('auth/sign_out', {
-  //   headers: {
-  //     'access-token': Cookies.get('_access_token'),
-  //     client: Cookies.get('_client'),
-  //     uid: Cookies.get('_uid'),
-  //   },
-  // });
+  return client.delete('auth/sign_out', {
+    headers: {
+      'access-token': Cookies.get('_access_token'),
+      client: Cookies.get('_client'),
+      uid: Cookies.get('_uid'),
+    },
+  });
 };
 
 // 認証済みのユーザーを取得

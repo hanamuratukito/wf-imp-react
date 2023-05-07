@@ -3,9 +3,10 @@ import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import Link from '@material-ui/core/Link';
 import Button from '@material-ui/core/Button';
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import { signIn, SignInParams } from '../../api/auth';
 import { useRouter } from 'next/router';
+import Cookies from 'js-cookie';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -13,7 +14,6 @@ export default function LoginInfo() {
   const router = useRouter();
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
-  const [alertMessageOpen, setAlertMessageOpen] = useState<boolean>(false);
 
   const tryLogin = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -29,19 +29,14 @@ export default function LoginInfo() {
 
       if (res.status === 200) {
         // ログインに成功した場合はCookieに各値を格納
-        // Cookies.set('_access_token', res.headers['access-token']);
-        // Cookies.set('_client', res.headers['client']);
-        // Cookies.set('_uid', res.headers['uid']);
+        Cookies.set('_access_token', res.headers['access-token']);
+        Cookies.set('_client', res.headers['client']);
+        Cookies.set('_uid', res.headers['uid']);
 
-        router.push('/test');
-
-        console.log('Signed in successfully!');
-      } else {
-        setAlertMessageOpen(true);
+        router.push('/request/list');
       }
     } catch (err) {
       console.log(err);
-      setAlertMessageOpen(true);
     }
   };
 
@@ -60,7 +55,7 @@ export default function LoginInfo() {
             className="!mt-10"
             color="primary"
             value={email}
-            onChange={event => setEmail(event.target.value)}
+            onChange={(event) => setEmail(event.target.value)}
           />
 
           <Typography variant="body2" className="text-blue-500">
@@ -77,7 +72,7 @@ export default function LoginInfo() {
             className="!mt-10"
             color="primary"
             value={password}
-            onChange={event => setPassword(event.target.value)}
+            onChange={(event) => setPassword(event.target.value)}
           />
 
           <Typography variant="body2" className="text-blue-500">

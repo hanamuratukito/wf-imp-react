@@ -1,11 +1,11 @@
 import { Inter } from 'next/font/google';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
-import Link from '@material-ui/core/Link';
 import Button from '@material-ui/core/Button';
 import React, { useState } from 'react';
 import { signUp, SignUpParams } from '../../api/auth';
 import { useRouter } from 'next/router';
+import Cookies from "js-cookie"
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -16,7 +16,6 @@ export default function UserRegisterInfo() {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [passwordConfirmation, setPasswordConfirmation] = useState<string>('');
-  // const [alertMessageOpen, setAlertMessageOpen] = useState<boolean>(false);
 
   const tryRegister = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -35,19 +34,16 @@ export default function UserRegisterInfo() {
       if (res.status === 200) {
         // アカウント作成と同時にログインさせてしまう
         // 本来であればメール確認などを挟むべきだが、今回はサンプルなので
-        // Cookies.set('_access_token', res.headers['access-token']);
-        // Cookies.set('_client', res.headers['client']);
-        // Cookies.set('_uid', res.headers['uid']);
+        Cookies.set('_access_token', res.headers['access-token']);
+        Cookies.set('_client', res.headers['client']);
+        Cookies.set('_uid', res.headers['uid']);
 
-        router.push('/');
+        router.push('/request/list');
 
         console.log('Signed in successfully!');
-      } else {
-        // setAlertMessageOpen(true);
       }
     } catch (err) {
       console.log(err);
-      // setAlertMessageOpen(true);
     }
   };
 
