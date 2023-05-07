@@ -66,7 +66,7 @@ export default function UserRegisterInfo() {
           className="!mt-10"
           color="primary"
           value={name}
-          onChange={event => setName(event.target.value)}
+          onChange={(event) => setName(event.target.value)}
         />
         <TextField
           label="メールアドレス"
@@ -74,7 +74,7 @@ export default function UserRegisterInfo() {
           className="!mt-10"
           color="primary"
           value={email}
-          onChange={event => setEmail(event.target.value)}
+          onChange={(event) => setEmail(event.target.value)}
         />
         <TextField
           label="パスワード"
@@ -82,7 +82,7 @@ export default function UserRegisterInfo() {
           className="!mt-10"
           color="primary"
           value={password}
-          onChange={event => setPassword(event.target.value)}
+          onChange={(event) => setPassword(event.target.value)}
         />
 
         <TextField
@@ -91,7 +91,7 @@ export default function UserRegisterInfo() {
           className="!mt-10"
           color="primary"
           value={passwordConfirmation}
-          onChange={event => setPasswordConfirmation(event.target.value)}
+          onChange={(event) => setPasswordConfirmation(event.target.value)}
         />
 
         <div>
