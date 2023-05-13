@@ -10,26 +10,20 @@ import { signOut } from '../../../features/auth/api/auth';
 import Cookies from 'js-cookie';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from "react";
-import { selectAuthState, authSlice } from '../../../features/auth/stores/authStore';
+import { getIsLogin, authSlice } from '../../../features/auth/stores/authStore';
 import { useDispatch, useSelector } from 'react-redux';
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-  },
   menuButton: {
     marginRight: theme.spacing(2),
-  },
-  title: {
-    flexGrow: 1,
-  },
+  }
 }));
 
 export default function ButtonAppBar() {
   const router = useRouter();
   const classes = useStyles();
   const dispatch = useDispatch();
-  const authState = useSelector(selectAuthState);
+  const isLogin = useSelector(getIsLogin);
 
   // useEffectを使わずにHTMLのだし分けを行うと、エラーが発生するためその回避
   // 参考：https://nishinatoshiharu.com/next-hydration-warning-resolution/
@@ -45,6 +39,7 @@ export default function ButtonAppBar() {
 
       if (res.data.success) {
         // サインアウト時には各Cookieを削除
+        // TODO セキュリティ上、Cookieはサーバ側で登録するべき
         Cookies.remove('_access_token');
         Cookies.remove('_client');
         Cookies.remove('_uid');
@@ -59,7 +54,7 @@ export default function ButtonAppBar() {
   };
 
   const logoutButton = () => {
-    if (authState && isClient) {
+    if (isLogin && isClient) {
       return (
         <Button
           color="inherit"

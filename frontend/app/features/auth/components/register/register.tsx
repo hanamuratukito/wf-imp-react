@@ -1,4 +1,3 @@
-import { Inter } from 'next/font/google';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
@@ -8,8 +7,6 @@ import { useRouter } from 'next/router';
 import Cookies from "js-cookie"
 import { authSlice } from '../../stores/authStore';
 import { useDispatch } from 'react-redux';
-
-const inter = Inter({ subsets: ['latin'] });
 
 export default function UserRegisterInfo() {
   const router = useRouter();
@@ -32,7 +29,6 @@ export default function UserRegisterInfo() {
 
     try {
       const res = await signUp(params);
-      console.log(res);
 
       if (res.status === 200) {
         // アカウント作成と同時にログインさせてしまう

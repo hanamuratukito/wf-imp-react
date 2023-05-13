@@ -1,16 +1,12 @@
-import { Inter } from 'next/font/google';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
-import Link from '@material-ui/core/Link';
 import Button from '@material-ui/core/Button';
 import React, { useState } from 'react';
-import { signIn, SignInParams } from '../../api/auth';
+import { signIn } from '../../api/auth';
 import { useRouter } from 'next/router';
 import Cookies from 'js-cookie';
 import { authSlice } from '../../stores/authStore';
 import { useDispatch } from 'react-redux';
-
-const inter = Inter({ subsets: ['latin'] });
 
 export default function LoginInfo() {
   const router = useRouter();
@@ -21,13 +17,11 @@ export default function LoginInfo() {
   const tryLogin = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
 
-    const params: SignInParams = {
-      email: email,
-      password: password,
-    };
-
     try {
-      const res = await signIn(params);
+      const res = await signIn({
+        email: email,
+        password: password,
+      });
 
       if (res.status === 200) {
         // ログインに成功した場合はCookieに各値を格納
@@ -62,12 +56,6 @@ export default function LoginInfo() {
             value={email}
             onChange={(event) => setEmail(event.target.value)}
           />
-
-          <Typography variant="body2" className="text-blue-500">
-            <Link color="inherit" href="#" underline="always">
-              メールアドレスを忘れた方
-            </Link>
-          </Typography>
         </div>
 
         <div>
@@ -79,12 +67,6 @@ export default function LoginInfo() {
             value={password}
             onChange={(event) => setPassword(event.target.value)}
           />
-
-          <Typography variant="body2" className="text-blue-500">
-            <Link color="inherit" href="#" underline="always">
-              パスワードを忘れた方
-            </Link>
-          </Typography>
         </div>
 
         <div>

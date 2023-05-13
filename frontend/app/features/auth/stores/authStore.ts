@@ -25,4 +25,4 @@ export const authSlice = createSlice({
   },
 });
 
-export const selectAuthState = (state: AppState) => state.auth.isLogin;
+export const getIsLogin = (state: AppState) => state.auth.isLogin;
