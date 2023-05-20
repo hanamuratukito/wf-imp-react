@@ -35,8 +35,23 @@ https://qiita.com/kazama1209/items/caa387bb857194759dc5#%E3%83%86%E3%82%B9%E3%83
 １．【Ruby on Rails エラー】uninitialized constant HomeController
 https://nabelog.org/636/
 
+２． `materialize': Could not find
+bundle install
+
 # マイグレーション実行
 
 １．docker-compose build
 ２．docker-compose up
 ３．docker-compose run backend rake db:migrate
+
+# Google APIsの実装
+
+１．コードは以下を参考
+※リダイレクトやコールバックのメソッドはコマンドをたたき対応
+https://qiita.com/kakiuchis/items/1aa5030e1c57deac0bf9
+
+２．以下のページから、リフレッシュトークンなどの発行を参考にする。
+https://www.y-hakopro.com/entry/google_oauth_api
+
+３．以下を参考に実行する。
+https://developers.google.com/gmail/api/reference/rest?hl=ja
