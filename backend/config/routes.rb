@@ -13,8 +13,8 @@ Rails.application.routes.draw do
       resources :sessions, only: %i[index]
     end
 
-    get '/gmail/redirect', to: 'gmail/gmail#redirect'
-    get '/gmail/callback', to: 'gmail/gmail#callback'
     get '/gmail/getmail', to: 'gmail/gmail#getmail'
+    get '/gmail/get_google_page', to: 'gmail/gmail#get_google_page'
+    post '/gmail/add_request', to: 'gmail/gmail#add_request'
   end
 end

@@ -10,9 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_05_014832) do
+ActiveRecord::Schema[7.0].define(version: 2023_05_26_092746) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "gmail_infos", force: :cascade do |t|
+    t.string "transition_url", null: false
+    t.string "client_id", null: false
+    t.string "client_secret", null: false
+    t.index ["client_id"], name: "index_gmail_infos_on_client_id", unique: true
+    t.index ["client_secret"], name: "index_gmail_infos_on_client_secret", unique: true
+    t.index ["transition_url"], name: "index_gmail_infos_on_transition_url", unique: true
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "provider", default: "email", null: false

@@ -6,6 +6,10 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
+import AddBoxIcon from '@material-ui/icons/AddBox';
+import Button from '@material-ui/core/Button';
+import { openGooglePage, addRequest } from '../api/request';
+import { useRouter } from 'next/router';
 
 const columns = [
   { id: 'businessName', label: '業務名', minWidth: 170 },
@@ -66,6 +70,7 @@ const rows = [
 export default function RequestListInfo() {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
+  const router = useRouter();
 
   const handleChangePage = (event: any, newPage: any) => {
     setPage(newPage);
@@ -75,10 +80,26 @@ export default function RequestListInfo() {
     setRowsPerPage(+event.target.value);
     setPage(0);
   };
+
+  const tryAddRequest = async () => {
+    // 文字列クエリパラメータを取得
+    const { code } = router.query;
+
+    if (code) {
+      const gmailInfo = addRequest(code as string);
+    } else {
+      // リクエスト作成処理
+      const gmailInfo = await openGooglePage();
+      window.open(gmailInfo.transitionUrl);
+    }
+  };
   return (
     // 「JSX expressions must have one parent element.」対策に<>を導入
     <>
-      <TableContainer>
+      <Button onClick={tryAddRequest}>
+        <AddBoxIcon />
+      </Button>
+      <TableContainer className="mt-3">
         <Table stickyHeader aria-label="sticky table">
           <TableHead>
             <TableRow>
