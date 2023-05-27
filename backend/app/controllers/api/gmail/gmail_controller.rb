@@ -20,6 +20,8 @@ class Api::Gmail::GmailController < ApplicationController
     end
     uri = URI.parse(escape("https://accounts.google.com/o/oauth2/token"))
     req = Net::HTTP::Post.new(uri)
+
+    # フロントで呼んでいる内容と合わせる（redirect_uriとか）
     req.set_form_data({
       'client_id' => gmail_info[0]['client_id'],
       'client_secret' => gmail_info[0]['client_secret'],
