@@ -34,13 +34,12 @@ class Api::Gmail::GmailController < ApplicationController
     end
 
     jsonRes = JSON.parse(response.body)
-    session[:access_token] = jsonRes['access_token']
-    render json: { result_status: 0000, access_token: session[:access_token], jsonRes: jsonRes }
+    session[:google_access_token] = jsonRes['access_token']
+    render json: { result_status: 0000 }
   end
 
   def getmail
-    # token = session[:access_token]
-    # render json: { token: session[:access_token] }
+    token = session[:google_access_token]
     uri = URI.parse(escape("https://www.googleapis.com/gmail/v1/users/me/messages"))
     request = Net::HTTP::Get.new(uri)
     request["Authorization"] = "Bearer #{token}"
