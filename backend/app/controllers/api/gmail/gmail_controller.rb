@@ -40,7 +40,7 @@ class Api::Gmail::GmailController < ApplicationController
 
   def getmail
     token = session[:google_access_token]
-    uri = URI.parse(escape("https://www.googleapis.com/gmail/v1/users/me/messages"))
+    uri = URI.parse(escape("https://www.googleapis.com/gmail/v1/users/me/messages?q=subject:{WF 見積書} AND is:unread"))
     request = Net::HTTP::Get.new(uri)
     request["Authorization"] = "Bearer #{token}"
     req_options = { use_ssl: uri.scheme == "https" }
@@ -49,7 +49,7 @@ class Api::Gmail::GmailController < ApplicationController
     end
 
     jsonRes = JSON.parse(response.body)
-    gmail = ""
+    gmails = []
     for msg in jsonRes['messages']
       gmailUri = URI.parse(escape("https://www.googleapis.com/gmail/v1/users/me/messages/#{msg['id']}"))
       gmailRequest = Net::HTTP::Get.new(gmailUri)
@@ -57,9 +57,9 @@ class Api::Gmail::GmailController < ApplicationController
       gmail = Net::HTTP.start(gmailUri.hostname, gmailUri.port, req_options) do |http|
         http.request(gmailRequest)
       end
-      gmail = JSON.parse(gmail.body)
+      gmails.push(JSON.parse(gmail.body))
     end
-    render json: { gmail: gmail, res: jsonRes }
+    render json: { gmails: gmails, res: jsonRes }
   end
 
   def escape(str)
