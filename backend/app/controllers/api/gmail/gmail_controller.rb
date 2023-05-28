@@ -13,7 +13,7 @@ class Api::Gmail::GmailController < ApplicationController
     render json: { result_status: 0000, transition_url: gmail_info[0]['transition_url'] }
   end
 
-  def add_request
+  def set_token
     gmail_info = GmailInfo.limit(1)
     if gmail_info.blank?
       render json: { result_status: 9000 }
@@ -40,7 +40,7 @@ class Api::Gmail::GmailController < ApplicationController
     render json: { result_status: 0000 }
   end
 
-  def getmail
+  def get_mail
     token = session[:google_access_token]
     uri = URI.parse(escape("https://www.googleapis.com/gmail/v1/users/me/messages?q=subject:{WF 見積書} AND is:unread"))
     request = Net::HTTP::Get.new(uri)

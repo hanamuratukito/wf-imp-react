@@ -13,8 +13,8 @@ Rails.application.routes.draw do
       resources :sessions, only: %i[index]
     end
 
-    get '/gmail/getmail', to: 'gmail/gmail#getmail'
+    get '/gmail/get_mail', to: 'gmail/gmail#get_mail'
     get '/gmail/get_google_page', to: 'gmail/gmail#get_google_page'
-    post '/gmail/add_request', to: 'gmail/gmail#add_request'
+    post '/gmail/set_token', to: 'gmail/gmail#set_token'
   end
 end
