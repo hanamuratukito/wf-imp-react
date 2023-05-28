@@ -1,15 +1,15 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 import { AppState } from '../../../stores/store';
 
 export type SearchConditionInfo = {
-  businessName: string;
+  businessType: string;
   requestName: string;
   status: string;
   contact: string;
 };
 
 export type RequestInfo = {
-  businessName: string;
+  businessType: string;
   requestName: string;
   status: string;
   contact: string;
@@ -26,7 +26,7 @@ export type UpdateAuthPayload = RequestState;
 
 const initialState: RequestState = {
   searchCondition: {
-    businessName: '',
+    businessType: '',
     requestName: '',
     status: '',
     contact: '',
@@ -34,18 +34,14 @@ const initialState: RequestState = {
   requests: null
 };
 
-export const authSlice = createSlice({
+export const requestSlice = createSlice({
   name: 'request',
   initialState,
   reducers: {
-    updateSearchCondition(state, action: PayloadAction<UpdateAuthPayload>) {
-      // TODO isLoginだけ渡すことはできないのか？
-      state.isLogin = action.payload.isLogin;
-    },
     reset(): RequestState {
       return initialState;
     },
   },
 });
 
-export const getIsLogin = (state: AppState) => state.auth.isLogin;
+export const getRequestStore = (state: AppState) => state;

@@ -16,5 +16,6 @@ Rails.application.routes.draw do
     get '/gmail/get_mail', to: 'gmail/gmail#get_mail'
     get '/gmail/get_google_page', to: 'gmail/gmail#get_google_page'
     post '/gmail/set_token', to: 'gmail/gmail#set_token'
+    post '/request/get', to: 'request/request#get'
   end
 end

@@ -8,8 +8,10 @@ import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 import AddBoxIcon from '@material-ui/icons/AddBox';
 import Button from '@material-ui/core/Button';
-import { openGooglePage, addRequest } from '../api/request';
+import { openGooglePage, addRequest, getRequest } from '../api/request';
 import { useRouter } from 'next/router';
+import { requestSlice, getRequestStore } from '../stores/requestStore';
+import { useDispatch, useSelector } from 'react-redux';
 
 const columns = [
   { id: 'businessName', label: '業務名', minWidth: 170 },
@@ -71,6 +73,7 @@ export default function RequestListInfo() {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const router = useRouter();
+  const dispatch = useDispatch()
 
   const handleChangePage = (event: any, newPage: any) => {
     setPage(newPage);
@@ -86,13 +89,18 @@ export default function RequestListInfo() {
     const { code } = router.query;
 
     if (code) {
-      const gmailInfo = addRequest(code as string);
+      await addRequest(code as string);
     } else {
-      // リクエスト作成処理
+      // リクエストトークン作成処理
+      // バックエンドでリダイレクトをさせるべきなのだが対応手段がわからず、
+      // グーグルアカウントでのログインなどは運用でカバーする
       const gmailInfo = await openGooglePage();
       window.open(gmailInfo.transitionUrl);
     }
   };
+
+  const stateReuest = useSelector(getRequestStore).request;
+  getRequest(stateReuest);
   return (
     // 「JSX expressions must have one parent element.」対策に<>を導入
     <>
