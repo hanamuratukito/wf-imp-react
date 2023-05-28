@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_26_092746) do
+ActiveRecord::Schema[7.0].define(version: 2023_05_28_025546) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -21,6 +21,37 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_26_092746) do
     t.index ["client_id"], name: "index_gmail_infos_on_client_id", unique: true
     t.index ["client_secret"], name: "index_gmail_infos_on_client_secret", unique: true
     t.index ["transition_url"], name: "index_gmail_infos_on_transition_url", unique: true
+  end
+
+  create_table "mail_infos", force: :cascade do |t|
+    t.string "subject", null: false
+    t.string "to", null: false
+    t.string "from", null: false
+    t.string "body"
+    t.json "attach"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["from"], name: "index_mail_infos_on_from"
+    t.index ["subject"], name: "index_mail_infos_on_subject"
+    t.index ["to"], name: "index_mail_infos_on_to"
+  end
+
+  create_table "requests", force: :cascade do |t|
+    t.integer "business_type", null: false
+    t.string "request_name", null: false
+    t.integer "status", null: false
+    t.string "contact", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "updated_user_id"
+    t.bigint "created_user_id"
+    t.bigint "mail_info_id"
+    t.index ["business_type"], name: "index_requests_on_business_type"
+    t.index ["created_user_id"], name: "index_requests_on_created_user_id"
+    t.index ["mail_info_id"], name: "index_requests_on_mail_info_id"
+    t.index ["request_name"], name: "index_requests_on_request_name"
+    t.index ["status"], name: "index_requests_on_status"
+    t.index ["updated_user_id"], name: "index_requests_on_updated_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -53,4 +84,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_26_092746) do
     t.index ["uid", "provider"], name: "index_users_on_uid_and_provider", unique: true
   end
 
+  add_foreign_key "requests", "mail_infos"
+  add_foreign_key "requests", "users", column: "created_user_id"
+  add_foreign_key "requests", "users", column: "updated_user_id"
 end

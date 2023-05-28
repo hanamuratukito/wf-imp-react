@@ -38,13 +38,22 @@ https://nabelog.org/636/
 ２． `materialize': Could not find
 bundle install
 
+# マイグレーション、モデルの作成
+https://qiita.com/zaru/items/cde2c46b6126867a1a64
+
+１．rails generate migration Requests
+２．rails generate model Request
+
+以下、indexを張る基準
+https://qiita.com/kodai-saito/items/541e4fe46c2d3edc9634
+
 # マイグレーション実行
 
 １．docker-compose build
 ２．docker-compose up
 ３．docker-compose run backend rake db:migrate
 
-# Google APIsの実装
+# Google APIの実装
 
 １．コードは以下を参考
 ※リダイレクトやコールバックのメソッドはコマンドをたたき対応
