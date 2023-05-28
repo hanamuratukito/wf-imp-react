@@ -1,5 +1,6 @@
 import client from '../../../pages/api/client';
 import { RequestState } from '../stores/requestStore';
+import { RequestInfo } from '../stores/requestStore';
 
 export interface GmailInfo {
   resultStatus: number;
@@ -16,8 +17,13 @@ export const addRequest = async (code: string): Promise<void> => {
   await client.get('gmail/get_mail');
 };
 
-export const getRequest = (request: RequestState): void => {
+export const getRequest = async (
+  request: RequestState
+): Promise<RequestInfo> => {
   // TODO ここで直接storeを呼び出したい
-  console.log(request);
-  client.post('request/get', { searchCondition: request.searchCondition });
+  const res = await client.post('request/get', {
+    searchCondition: request.searchCondition,
+  });
+
+  return res.data.requests as RequestInfo;
 };

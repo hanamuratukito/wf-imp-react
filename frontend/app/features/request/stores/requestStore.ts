@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { AppState } from '../../../stores/store';
 
 export type SearchConditionInfo = {
@@ -9,17 +9,17 @@ export type SearchConditionInfo = {
 };
 
 export type RequestInfo = {
-  businessType: string;
+  id: number;
+  businessType: number;
   requestName: string;
-  status: string;
+  status: number;
   contact: string;
-  createdAt: string;
-  updatedAt: string;
+  createdUserName: string;
+  updatedUserName: string;
 };
 
 export type RequestState = {
   searchCondition: SearchConditionInfo;
-  requests: RequestInfo[] | null;
 };
 
 export type UpdateAuthPayload = RequestState;
@@ -30,14 +30,16 @@ const initialState: RequestState = {
     requestName: '',
     status: '',
     contact: '',
-  },
-  requests: null
+  }
 };
 
 export const requestSlice = createSlice({
   name: 'request',
   initialState,
   reducers: {
+    updateSearchCondition(state, action: PayloadAction<SearchConditionInfo>) {
+      console.log(state);
+    },
     reset(): RequestState {
       return initialState;
     },
