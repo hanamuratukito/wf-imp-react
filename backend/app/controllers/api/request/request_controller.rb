@@ -9,7 +9,7 @@ class Api::Request::RequestController < ApplicationController
     end
 
     if !search_condition['request_name'].blank?
-      where_str = "#{where_str} AND request_name = #{search_condition['request_name']}"
+      where_str = "#{where_str} AND request_name like '%#{search_condition['request_name']}%'"
     end
 
     if !search_condition['status'].blank?
@@ -17,7 +17,7 @@ class Api::Request::RequestController < ApplicationController
     end
 
     if !search_condition['contact'].blank?
-      where_str = "#{where_str} AND contact = #{search_condition['contact']}"
+      where_str = "#{where_str} AND contact like '%#{search_condition['contact']}%'"
     end
     requests = Request.joins("
       LEFT OUTER JOIN users AS created_users ON requests.created_user_id = created_users.id
