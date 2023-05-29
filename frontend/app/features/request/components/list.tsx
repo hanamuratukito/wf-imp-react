@@ -10,7 +10,12 @@ import AddBoxIcon from '@material-ui/icons/AddBox';
 import Button from '@material-ui/core/Button';
 import { openGooglePage, addRequest, getRequest } from '../api/request';
 import { useRouter } from 'next/router';
-import { getRequestStore, RequestInfo } from '../stores/requestStore';
+import {
+  getRequestStore,
+  RequestInfo,
+  requestSlice,
+  requestInfo,
+} from '../stores/requestStore';
 import { useDispatch, useSelector } from 'react-redux';
 
 const columns = [
@@ -47,11 +52,11 @@ const columns = [
 ];
 
 export default function RequestListInfo() {
+  const dispatch = useDispatch();
+  const { updateRequest } = requestSlice.actions;
   const [page, setPage] = React.useState(0);
-  const [requests, setRequests] = React.useState<RequestInfo[]>([]);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const router = useRouter();
-  const dispatch = useDispatch();
 
   const handleChangePage = (event: any, newPage: any) => {
     setPage(newPage);
@@ -80,8 +85,8 @@ export default function RequestListInfo() {
   const stateReuest = useSelector(getRequestStore).request;
   React.useEffect(() => {
     (async () => {
-      const request = await getRequest(stateReuest);
-      setRequests(request);
+      const resRequests = await getRequest(stateReuest);
+      dispatch(updateRequest(resRequests));
     })();
   }, []);
 
@@ -107,7 +112,7 @@ export default function RequestListInfo() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {requests
+            {stateReuest.requests
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map((row) => {
                 return (
@@ -145,7 +150,7 @@ export default function RequestListInfo() {
       <TablePagination
         rowsPerPageOptions={[10, 25, 100]}
         component="div"
-        count={requests.length}
+        count={stateReuest.requests.length}
         rowsPerPage={rowsPerPage}
         page={page}
         onPageChange={handleChangePage}

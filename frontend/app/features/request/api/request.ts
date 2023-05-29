@@ -19,11 +19,11 @@ export const addRequest = async (code: string): Promise<void> => {
 
 export const getRequest = async (
   request: RequestState
-): Promise<RequestInfo> => {
+): Promise<RequestInfo[]> => {
   // TODO ここで直接storeを呼び出したい
   const res = await client.post('request/get', {
     searchCondition: request.searchCondition,
   });
 
-  return res.data.requests as RequestInfo;
+  return res.data.requests as RequestInfo[];
 };
