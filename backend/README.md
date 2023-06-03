@@ -64,3 +64,9 @@ https://www.y-hakopro.com/entry/google_oauth_api
 
 ３．以下を参考に実行する。
 https://developers.google.com/gmail/api/reference/rest?hl=ja
+
+# APIパスの確認コマンド
+rails routes
+
+# rails 更新
+bundle install

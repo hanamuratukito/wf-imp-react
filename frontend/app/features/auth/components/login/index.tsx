@@ -26,6 +26,7 @@ export default function LoginInfo() {
       if (res.status === 200) {
         // ログインに成功した場合はCookieに各値を格納
         // TODO セキュリティ面を考慮するとサーバーでcookie登録するのが望ましい
+        // TODO ログイン確認APIの作成
         Cookies.set('_access_token', res.headers['access-token']);
         Cookies.set('_client', res.headers['client']);
         Cookies.set('_uid', res.headers['uid']);
