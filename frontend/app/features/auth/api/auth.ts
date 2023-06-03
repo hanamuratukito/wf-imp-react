@@ -1,5 +1,6 @@
 import client from '../../../pages/api/client';
-import Cookies from "js-cookie"
+import Cookies from 'js-cookie';
+import axios from 'axios';
 
 // サインアップ
 export interface SignUpParams {
