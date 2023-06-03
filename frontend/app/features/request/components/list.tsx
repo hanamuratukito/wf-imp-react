@@ -18,39 +18,6 @@ import {
 } from '../stores/requestStore';
 import { useDispatch, useSelector } from 'react-redux';
 
-const columns = [
-  { id: 'businessType', label: '業務名', minWidth: 170, align: 'left' },
-  { id: 'requestName', label: '依頼名', minWidth: 100, align: 'left' },
-  {
-    id: 'status',
-    label: 'ステータス',
-    minWidth: 170,
-    align: 'left',
-    format: (value: any) => value.toLocaleString('en-US'),
-  },
-  {
-    id: 'contact',
-    label: '担当者',
-    minWidth: 170,
-    align: 'left',
-    format: (value: any) => value.toLocaleString('en-US'),
-  },
-  {
-    id: 'createdUserName',
-    label: '作成者',
-    minWidth: 170,
-    align: 'left',
-    format: (value: any) => value.toFixed(2),
-  },
-  {
-    id: 'updatedUserName',
-    label: '更新者',
-    minWidth: 170,
-    align: 'left',
-    format: (value: any) => value.toFixed(2),
-  },
-];
-
 export default function RequestListInfo() {
   const dispatch = useDispatch();
   const { updateRequest } = requestSlice.actions;
