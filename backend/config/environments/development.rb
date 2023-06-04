@@ -56,17 +56,6 @@ Rails.application.configure do
   # ログイン認証のため
   config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
 
-  config.middleware.insert_before 0, Rack::Cors do
-    allow do
-      origins 'http://localhost:8000'  # リクエスト元となるOriginsを記載する
-      resource '*',
-        headers: :any,
-        methods: %i[get post put patch delete options head],
-        credentials: true  # trueとすること
-    end
-  end
-
-
   # Raises error for missing translations.
   # config.i18n.raise_on_missing_translations = true
 

@@ -9,13 +9,10 @@ import TableRow from '@material-ui/core/TableRow';
 import AddBoxIcon from '@material-ui/icons/AddBox';
 import Button from '@material-ui/core/Button';
 import { openGooglePage, addRequest, getRequest } from '../api/request';
+import { getCurrentUser } from '../../auth/api/auth';
 import { useRouter } from 'next/router';
-import {
-  getRequestStore,
-  RequestInfo,
-  requestSlice,
-  requestInfo,
-} from '../stores/requestStore';
+import { authSlice } from '../../auth/stores/authStore';
+import { getRequestStore, requestSlice } from '../stores/requestStore';
 import { useDispatch, useSelector } from 'react-redux';
 
 const columns = [
@@ -85,6 +82,13 @@ export default function RequestListInfo() {
   const stateReuest = useSelector(getRequestStore).request;
   React.useEffect(() => {
     (async () => {
+      const resIsLogin = await getCurrentUser();
+
+      if (!resIsLogin.isLogin) router.push('/');
+
+      dispatch(
+        authSlice.actions.updateIsLogin({ isLogin: resIsLogin.isLogin })
+      );
       const resRequests = await getRequest(stateReuest);
       dispatch(updateRequest(resRequests));
     })();

@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "articles#index"
   namespace :api do
-    mount_devise_token_auth_for 'User', at: 'auth', controllers: {
+    mount_devise_token_auth_for 'User', at: 'auth',skip: [:omniauth_callbacks], controllers: {
       registrations: 'api/auth/registrations'
     }
 
