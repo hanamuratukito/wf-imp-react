@@ -30,6 +30,11 @@ export interface User {
   updated_at: Date;
 }
 
+export interface UserInfo {
+  data?: User;
+  isLogin: boolean;
+}
+
 // サインアップ（新規アカウント作成）
 export const signUp = (params: SignUpParams) => {
   return client.post('auth', params);
@@ -50,4 +55,22 @@ export const signOut = () => {
       uid: Cookies.get('_uid'),
     },
   });
+};
+
+// 認証済みのユーザーを取得
+export const getCurrentUser = async (): Promise<UserInfo> => {
+  if (
+    !Cookies.get('_access_token') ||
+    !Cookies.get('_client') ||
+    !Cookies.get('_uid')
+  )
+    return { isLogin: false };
+  const res = await client.get('/auth/sessions', {
+    headers: {
+      'access-token': Cookies.get('_access_token'),
+      client: Cookies.get('_client'),
+      uid: Cookies.get('_uid'),
+    },
+  });
+  return res.data;
 };
