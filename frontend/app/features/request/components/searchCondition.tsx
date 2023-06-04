@@ -66,7 +66,7 @@ export default function RequestListInfo() {
             onChange={(event) =>
               changeBusinessType(event.target.value as number)
             }
-            value={businessType}
+            value={businessType ? businessType : ''}
           >
             <MenuItem value={1}>WF</MenuItem>
             <MenuItem value={2}>見積書</MenuItem>
@@ -90,7 +90,7 @@ export default function RequestListInfo() {
             id="demo-simple-select"
             label="ステータス"
             className="ml-4 w-24"
-            value={status}
+            value={status ? status : ''}
             onChange={(event) => changeStatus(event.target.value as number)}
           >
             <MenuItem value={0}>未着手</MenuItem>
