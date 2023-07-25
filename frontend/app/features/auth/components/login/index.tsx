@@ -7,6 +7,7 @@ import { useRouter } from 'next/router';
 import Cookies from 'js-cookie';
 import { authSlice } from '../../stores/authStore';
 import { useDispatch } from 'react-redux';
+import Link from 'next/link'
 
 export default function LoginInfo() {
   const router = useRouter();
@@ -74,9 +75,8 @@ export default function LoginInfo() {
           <Button
             variant="contained"
             className="!mt-12 !text-white !bg-blue-600"
-            href="/auth/register"
           >
-            新規登録
+            <Link href="/auth/register">新規登録</Link>
           </Button>
 
           <Button
