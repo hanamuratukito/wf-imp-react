@@ -1,0 +1,2 @@
+class MailInfo < ApplicationRecord
+end

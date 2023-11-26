@@ -1,6 +1,18 @@
 # wf-imp-reactの環境構築
 
-１．主に以下URLから手順を行う
+１．主に以下URLを参考に手順を行う
+※新たなPCで環境構築する場合、以下の手順。
+１．node.jsのインストール
+    https://nodejs.org/en/download
+    ※v18.13.0付近のmsiファイルを落としてきてインストールすること
+２．「npm install -g npm@8.19.13」でnpmを特定バージョンに変更
+３．「npm i --save --legacy-peer-deps」をpacage.jsonのある階層で実行
+４．docker-compose up
+５．docker-compose run backend rake db:create
+６．docker-compose run backend rake db:migrate
+
+https://qiita.com/asami___t/items/256f76c3c8a9bd5d0732
+
 https://qiita.com/ren0826jam/items/ddd69ecd59400216a2e6
 
 
@@ -21,6 +33,27 @@ info Visit https://yarnpkg.com/en/docs/cli/create for documentation about this c
 error Found incompatible module.
 
 
-２．https://qiita.com/Co-0/items/db8d36d31b1480b92d64
+２．「failed to solve: rpc error: code = Unknown desc = failed to solve with・・・」の対応
+https://qiita.com/Co-0/items/db8d36d31b1480b92d64
 
 ３．https://rails-ambassador.herokuapp.com/debugs/NoDatabaseError
+
+４．docker-compose up実行時にfrontend資材で「command-failed-code-127」エラーが発生。npm iをpacage.jsonのある階層で実行すれば解決
+https://hatolabo.com/programming/command-failed-code-127
+
+５．tailwindowが急に効かなくなった場合、tailwind.config.jsの定義を確認すべし
+
+# 導入ライブラリ
+
+１．以下より、redux導入
+https://qiita.com/keitakn/items/7433c89ce52073e861a1#%E3%83%87%E3%82%A3%E3%83%AC%E3%82%AF%E3%83%88%E3%83%AA%E6%A7%8B%E6%88%90%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6
+
+# フォルダ構成
+https://note.com/ryoppei/n/n2e3e7a66e758
+
+※１：componentsのファイル名は頭大文字とし、メソッド名も頭大文字とする。
+※２：状態管理ライブラリはreduxで統一。（他ライブラリを使いたいところだが、一旦fluxを学ぶためにもreduxで進める。）
+
+# マテリアルUIの導入
+
+https://qiita.com/tmgauss/items/07d04d78c6df59ba2fb6

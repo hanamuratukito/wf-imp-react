@@ -1,0 +1,90 @@
+# This file is auto-generated from the current state of the database. Instead
+# of editing this file, please use the migrations feature of Active Record to
+# incrementally modify your database, and then regenerate this schema definition.
+#
+# This file is the source Rails uses to define your schema when running `bin/rails
+# db:schema:load`. When creating a new database, `bin/rails db:schema:load` tends to
+# be faster and is potentially less error prone than running all of your
+# migrations from scratch. Old migrations may fail to apply correctly if those
+# migrations use external dependencies or application code.
+#
+# It's strongly recommended that you check this file into your version control system.
+
+ActiveRecord::Schema[7.0].define(version: 2023_05_28_025546) do
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
+  create_table "gmail_infos", force: :cascade do |t|
+    t.string "transition_url", null: false
+    t.string "client_id", null: false
+    t.string "client_secret", null: false
+    t.index ["client_id"], name: "index_gmail_infos_on_client_id", unique: true
+    t.index ["client_secret"], name: "index_gmail_infos_on_client_secret", unique: true
+    t.index ["transition_url"], name: "index_gmail_infos_on_transition_url", unique: true
+  end
+
+  create_table "mail_infos", force: :cascade do |t|
+    t.string "subject", null: false
+    t.string "to", null: false
+    t.string "from", null: false
+    t.string "body"
+    t.json "attach"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["from"], name: "index_mail_infos_on_from"
+    t.index ["subject"], name: "index_mail_infos_on_subject"
+    t.index ["to"], name: "index_mail_infos_on_to"
+  end
+
+  create_table "requests", force: :cascade do |t|
+    t.integer "business_type", null: false
+    t.string "request_name", null: false
+    t.integer "status", null: false
+    t.string "contact", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "updated_user_id"
+    t.bigint "created_user_id"
+    t.bigint "mail_info_id"
+    t.index ["business_type"], name: "index_requests_on_business_type"
+    t.index ["created_user_id"], name: "index_requests_on_created_user_id"
+    t.index ["mail_info_id"], name: "index_requests_on_mail_info_id"
+    t.index ["request_name"], name: "index_requests_on_request_name"
+    t.index ["status"], name: "index_requests_on_status"
+    t.index ["updated_user_id"], name: "index_requests_on_updated_user_id"
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string "provider", default: "email", null: false
+    t.string "uid", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.boolean "allow_password_change", default: false
+    t.datetime "remember_created_at"
+    t.string "confirmation_token"
+    t.datetime "confirmed_at"
+    t.datetime "confirmation_sent_at"
+    t.string "unconfirmed_email"
+    t.string "name"
+    t.string "nickname"
+    t.string "image"
+    t.string "email"
+    t.json "tokens"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.string "current_sign_in_ip"
+    t.string "last_sign_in_ip"
+    t.integer "sign_in_count", default: 0, null: false
+    t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
+    t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+    t.index ["uid", "provider"], name: "index_users_on_uid_and_provider", unique: true
+  end
+
+  add_foreign_key "requests", "mail_infos"
+  add_foreign_key "requests", "users", column: "created_user_id"
+  add_foreign_key "requests", "users", column: "updated_user_id"
+end

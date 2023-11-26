@@ -1,0 +1,2 @@
+class GmailInfo < ApplicationRecord
+end
