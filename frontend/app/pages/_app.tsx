@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import type { AppProps } from 'next/app';
 import Header from '../components/layouts/header/Header';
 import theme from '../theme/theme';
-import { ThemeProvider } from '@material-ui/core';
+import { ThemeProvider } from '@mui/material';
 import 'tailwindcss/tailwind.css';
 import { wrapper } from '../stores/store';
 

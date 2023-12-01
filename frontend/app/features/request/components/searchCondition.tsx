@@ -1,12 +1,12 @@
 import React from 'react';
-import BusinessIcon from '@material-ui/icons/Business';
-import Select from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
-import MailOutlineIcon from '@material-ui/icons/MailOutline';
-import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
-import FormatListBulletedIcon from '@material-ui/icons/FormatListBulleted';
-import PermIdentityIcon from '@material-ui/icons/PermIdentity';
+import BusinessIcon from '@mui/icons-material/Business';
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
+import MailOutlineIcon from '@mui/icons-material/MailOutline';
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
+import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
+import PermIdentityIcon from '@mui/icons-material/PermIdentity';
 import { useChangeBusinessType } from '../hooks/useChangeBusinessType';
 
 export default function RequestListInfo() {

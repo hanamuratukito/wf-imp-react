@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { getIsLogin, authSlice } from '../features/auth/stores/authStore';
 import { useDispatch, useSelector } from 'react-redux';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@mui/material/styles';
 
 const useStyles = makeStyles((theme) => ({
 	menuButton: {
