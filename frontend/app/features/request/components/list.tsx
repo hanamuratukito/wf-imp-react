@@ -1,19 +1,14 @@
 import React from 'react';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TablePagination from '@material-ui/core/TablePagination';
-import TableRow from '@material-ui/core/TableRow';
-import AddBoxIcon from '@material-ui/icons/AddBox';
-import Button from '@material-ui/core/Button';
-import { openGooglePage, addRequest, getRequest } from '../api/request';
-import { getCurrentUser } from '../../auth/api/auth';
-import { useRouter } from 'next/router';
-import { authSlice } from '../../auth/stores/authStore';
-import { getRequestStore, requestSlice } from '../stores/requestStore';
-import { useDispatch, useSelector } from 'react-redux';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TablePagination from '@mui/material/TablePagination';
+import TableRow from '@mui/material/TableRow';
+import AddBoxIcon from '@mui/icons-material/AddBox';
+import Button from '@mui/material/Button';
+import { useList } from '../hooks/useList';
 
 const columns = [
   { id: 'businessType', label: '業務名', minWidth: 170, align: 'left' },
@@ -49,49 +44,18 @@ const columns = [
 ];
 
 export default function RequestListInfo() {
-  const dispatch = useDispatch();
-  const { updateRequest } = requestSlice.actions;
-  const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(10);
-  const router = useRouter();
+  const {
+    page,
+    rowsPerPage,
+    stateReuest,
+    handleChangePage,
+    handleChangeRowsPerPage,
+    tryAddRequest,
+    init,
+  } = useList();
 
-  const handleChangePage = (event: any, newPage: any) => {
-    setPage(newPage);
-  };
-
-  const handleChangeRowsPerPage = (event: any) => {
-    setRowsPerPage(+event.target.value);
-    setPage(0);
-  };
-
-  const tryAddRequest = async () => {
-    // 文字列クエリパラメータを取得
-    const { code } = router.query;
-
-    if (code) {
-      await addRequest(code as string);
-    } else {
-      // リクエストトークン作成処理
-      // バックエンドでリダイレクトをさせるべきなのだが対応手段がわからず、
-      // グーグルアカウントでのログインなどは運用でカバーする
-      const gmailInfo = await openGooglePage();
-      window.open(gmailInfo.transitionUrl);
-    }
-  };
-
-  const stateReuest = useSelector(getRequestStore).request;
   React.useEffect(() => {
-    (async () => {
-      const resIsLogin = await getCurrentUser();
-
-      if (!resIsLogin.isLogin) router.push('/');
-
-      dispatch(
-        authSlice.actions.updateIsLogin({ isLogin: resIsLogin.isLogin })
-      );
-      const resRequests = await getRequest(stateReuest);
-      dispatch(updateRequest(resRequests));
-    })();
+    init();
   }, []);
 
   return (

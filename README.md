@@ -1,6 +1,16 @@
 # wf-imp-reactの環境構築
 
 １．主に以下URLを参考に手順を行う
+※新たなPCで環境構築する場合、以下の手順。
+１．node.jsのインストール
+    https://nodejs.org/en/download
+    ※v18.13.0付近のmsiファイルを落としてきてインストールすること
+２．「npm install -g npm@8.19.13」でnpmを特定バージョンに変更
+３．「npm i --save --legacy-peer-deps」をpacage.jsonのある階層で実行
+４．docker-compose up
+５．docker-compose run backend rake db:create
+６．docker-compose run backend rake db:migrate
+
 https://qiita.com/asami___t/items/256f76c3c8a9bd5d0732
 
 https://qiita.com/ren0826jam/items/ddd69ecd59400216a2e6

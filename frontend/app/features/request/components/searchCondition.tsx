@@ -1,57 +1,26 @@
-import React, { useState } from 'react';
-import BusinessIcon from '@material-ui/icons/Business';
-import Select from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
-import MailOutlineIcon from '@material-ui/icons/MailOutline';
-import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
-import FormatListBulletedIcon from '@material-ui/icons/FormatListBulleted';
-import PermIdentityIcon from '@material-ui/icons/PermIdentity';
-import { getRequestStore, requestSlice } from '../stores/requestStore';
-import { useDispatch, useSelector } from 'react-redux';
-import { getRequest } from '../api/request';
+import React from 'react';
+import BusinessIcon from '@mui/icons-material/Business';
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
+import MailOutlineIcon from '@mui/icons-material/MailOutline';
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
+import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
+import PermIdentityIcon from '@mui/icons-material/PermIdentity';
+import { useChangeBusinessType } from '../hooks/useChangeBusinessType';
 
 export default function RequestListInfo() {
-  const dispatch = useDispatch();
-  const selector = useSelector(getRequestStore);
   const {
-    updateBusinessType,
-    updateRequestName,
-    updateStatus,
-    updateContact,
-    updateRequest,
-  } = requestSlice.actions;
-
-  const businessType = selector.request.searchCondition.businessType;
-  const requestName = selector.request.searchCondition.requestName;
-  const status = selector.request.searchCondition.status;
-  const contact = selector.request.searchCondition.contact;
-
-  const changeBusinessType = (value: number) => {
-    dispatch(updateBusinessType(value));
-    console.log(value);
-  };
-
-  const changeRequestName = (value: string) => {
-    dispatch(updateRequestName(value));
-    console.log(value);
-  };
-
-  const changeStatus = (value: number) => {
-    dispatch(updateStatus(value));
-    console.log(value);
-  };
-
-  const changeContact = (value: string) => {
-    dispatch(updateContact(value));
-    console.log(value);
-  };
-
-  const searchRequest = async () => {
-    const requests = await getRequest(selector.request);
-    dispatch(updateRequest(requests));
-    console.log(selector);
-  };
+    businessType,
+    requestName,
+    status,
+    contact,
+    changeBusinessType,
+    changeRequestName,
+    changeStatus,
+    changeContact,
+    searchRequest,
+  } = useChangeBusinessType();
 
   return (
     <div>

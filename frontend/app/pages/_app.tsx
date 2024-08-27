@@ -2,25 +2,27 @@ import React, { useEffect } from 'react';
 import type { AppProps } from 'next/app';
 import Header from '../components/layouts/header/Header';
 import theme from '../theme/theme';
-import { ThemeProvider } from '@material-ui/core';
+import { ThemeProvider } from '@mui/material';
 import 'tailwindcss/tailwind.css';
 import { wrapper } from '../stores/store';
+import {Provider} from 'react-redux';
 
-function MyApp({ Component, pageProps }: AppProps) {
+function MyApp({ Component, ...rest }: AppProps) {
   useEffect(() => {
     const jssStyles = document.querySelector('#jss-server-side');
     jssStyles?.parentElement?.removeChild(jssStyles);
   }, []);
+  const { store, props } = wrapper.useWrappedStore(rest);
+
   return (
-    // 「JSX expressions must have one parent element.」対策に<>を導入
-    <>
+    <Provider store={store}>
       <ThemeProvider theme={theme}>
         {/* TODO 「画面高さ - ヘッダーの高さ」の指定 */}
         <Header />
-        <Component {...pageProps} />
+        <Component {...props} />
       </ThemeProvider>
-    </>
+    </Provider>
   );
 }
 
-export default wrapper.withRedux(MyApp);
+export default MyApp;

@@ -1,6 +1,7 @@
 import client from '../../../pages/api/client';
 import { RequestState } from '../stores/requestStore';
 import { RequestInfo } from '../stores/requestStore';
+import axios from 'axios';
 
 export interface GmailInfo {
   resultStatus: number;

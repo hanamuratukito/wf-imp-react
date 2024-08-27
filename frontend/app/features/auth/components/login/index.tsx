@@ -1,12 +1,13 @@
-import TextField from '@material-ui/core/TextField';
-import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
+import TextField from '@mui/material/TextField';
+import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
 import React, { useState } from 'react';
 import { signIn } from '../../api/auth';
 import { useRouter } from 'next/router';
 import Cookies from 'js-cookie';
 import { authSlice } from '../../stores/authStore';
 import { useDispatch } from 'react-redux';
+import Link from 'next/link'
 
 export default function LoginInfo() {
   const router = useRouter();
@@ -74,9 +75,8 @@ export default function LoginInfo() {
           <Button
             variant="contained"
             className="!mt-12 !text-white !bg-blue-600"
-            href="/auth/register"
           >
-            新規登録
+            <Link href="/auth/register">新規登録</Link>
           </Button>
 
           <Button

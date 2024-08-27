@@ -1,6 +1,6 @@
-import TextField from '@material-ui/core/TextField';
-import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
+import TextField from '@mui/material/TextField';
+import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
 import React, { useState } from 'react';
 import { signUp, SignUpParams } from '../../api/auth';
 import { useRouter } from 'next/router';
