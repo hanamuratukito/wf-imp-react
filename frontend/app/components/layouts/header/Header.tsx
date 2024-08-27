@@ -9,7 +9,7 @@ import { useEffect } from 'react';
 import { useHeader } from '../../../hooks/useHeader';
 
 export default function ButtonAppBar() {
-  const { classes, isLogin, isClient, tryLogout, setIsClient } =
+  const { isLogin, isClient, tryLogout, setIsClient } =
     useHeader();
 
   useEffect(() => {
@@ -31,7 +31,6 @@ export default function ButtonAppBar() {
       <Toolbar className="flex">
         <IconButton
           edge="start"
-          className={classes.menuButton}
           color="inherit"
           aria-label="menu"
         >

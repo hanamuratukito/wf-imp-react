@@ -4,17 +4,9 @@ import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { getIsLogin, authSlice } from '../features/auth/stores/authStore';
 import { useDispatch, useSelector } from 'react-redux';
-import { makeStyles } from '@mui/material/styles';
-
-const useStyles = makeStyles((theme) => ({
-	menuButton: {
-		marginRight: theme.spacing(2),
-	},
-}));
 
 export const useHeader = () => {
   const router = useRouter();
-  const classes = useStyles();
   const dispatch = useDispatch();
   const isLogin = useSelector(getIsLogin);
 
@@ -43,7 +35,6 @@ export const useHeader = () => {
   };
 
   return {
-    classes,
     isLogin,
     isClient,
     tryLogout,
